@@ -28,13 +28,13 @@ def go(args):
     artifact = run.use_artifact(args.input_artifact)
     artifact_path = artifact.file()
 
-    df = pd.read_parquet(artifact_path)
+    df = pd.read_csv(artifact_path)
 
     logger.info("Cleaning of data")
     df = df[df['price'].between(args.min_price, args.max_price)]
 
     logger.info("Exporting of clean data")
-    df.to_csv = ('clean_sample.csv', index=False)
+    df.to_csv('clean_sample.csv', index=False)
     artifact = wandb.Artifact(
         args.output_artifact,
         type=args.output_type,
